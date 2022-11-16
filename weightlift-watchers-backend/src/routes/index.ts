@@ -3,7 +3,6 @@ import * as http from 'http';
 import * as path from 'path';
 import * as swaggerJSDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
-import * as passportConfig from '../config/middleware/passport';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 
@@ -22,7 +21,9 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/v1/users', passportConfig.isAuthenticated, UserRouter);
+    app.use('/api/v1/users', UserRouter);
+
+    app.use('/api/v1/exercises', (req, res) => { res.send(http.STATUS_CODES[501]); });
 
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter

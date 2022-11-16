@@ -5,6 +5,8 @@ import { NextFunction, Request, Response } from 'express';
 import HttpError from '../error';
 import UserModel, { IUserModel } from '../../components/User/model';
 
+// TODO: no idea how to use passport, not sure I'm gonna use any of this
+
 type LocalStrategyType = typeof passportLocal.Strategy;
 
 const LocalStrategy: LocalStrategyType = passportLocal.Strategy;
