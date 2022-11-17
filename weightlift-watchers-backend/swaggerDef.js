@@ -6,6 +6,6 @@ module.exports = {
         description: 'A sample API',
     },
     servers: [
-        { url: 'http://localhost:3000' },
+        {url: 'http://localhost:3000'},
     ],
 };

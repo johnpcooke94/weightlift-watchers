@@ -2,6 +2,7 @@ const chai = require('chai');
 const request = require('supertest');
 const app = require('../src/config/server/server').default;
 const UserModel = require('../src/components/User/model').default;
+
 chai.should();
 
 /**
@@ -22,7 +23,7 @@ describe('API', () => {
     it('create new user', (done) => {
         const newUser = {
             email: 'new.user@gmail.com',
-            name: 'John Doe'
+            name: 'John Doe',
         };
 
         request(app)

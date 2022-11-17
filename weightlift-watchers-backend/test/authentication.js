@@ -2,6 +2,7 @@ const chai = require('chai');
 const request = require('supertest');
 const app = require('../src/config/server/server').default;
 const user = require('./fixtures/user.json');
+
 chai.should();
 
 /**
@@ -23,7 +24,7 @@ describe('Authentication', () => {
                 res.body.message.should.be.a('string');
                 global.cookie = res.header['set-cookie'];
             })
-            .end(done)
+            .end(done);
     });
     it('sign up user with existing email', (done) => {
         request(app)

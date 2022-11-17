@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { ExerciseComponent } from '../components';
+import {ExerciseComponent} from '../components';
 
 const router: Router = Router();
 
