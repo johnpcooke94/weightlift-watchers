@@ -43,6 +43,7 @@
         "consistent-return": "off",
         "arrow-body-style": "off",
         "class-methods-use-this": "off",
-        "object-curly-spacing": ["error", "never"]
+        "object-curly-spacing": ["error", "never"],
+        "no-trailing-spaces": "off"
     }
 }
