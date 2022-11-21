@@ -7,6 +7,7 @@ import * as connections from '../../config/connection/connection';
  * @extends {Document}
  */
 export interface IExerciseModel extends Document {
+    id: string;
     name: string;
     description: string;
     sets: number;
