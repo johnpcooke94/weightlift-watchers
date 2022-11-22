@@ -14,6 +14,14 @@ class ExerciseValidation extends Validation {
 
         return schema.validate(params);
     }
+
+    getExercises(params: IExerciseModel[]): Joi.ValidationResult {
+        const schema: Joi.Schema = Joi.object().keys({
+            ids: Joi.array().required(),
+        });
+
+        return schema.validate(params);
+    }
 }
 
 export default new ExerciseValidation();
