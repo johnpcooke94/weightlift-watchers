@@ -99,7 +99,7 @@ router.post('/', UserComponent.create);
  *              oneOf:
  *                - $ref: '#/components/schemas/UserSchema'
  */
-router.get('/:id', UserComponent.findOne);
+// router.get('/:id', UserComponent.findOne);
 
 /**
  * DELETE method route
@@ -128,7 +128,7 @@ router.get('/:id', UserComponent.findOne);
  *              oneOf:
  *                - $ref: '#/components/schemas/UserSchema'
  */
-router.delete('/:id', UserComponent.remove);
+// router.delete('/:id', UserComponent.remove);
 
 /**
  * @export {express.Router}

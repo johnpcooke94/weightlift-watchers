@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IUserModel } from './model';
+import {IUserModel} from './model';
 
 /**
  * @export
@@ -21,14 +21,10 @@ class UserValidation extends Validation {
      * @returns {Joi.ValidationResult}
      * @memberof UserValidation
      */
-    createUser(
-        params: IUserModel,
-    ): Joi.ValidationResult {
+    createUser(params: IUserModel): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
-            name: Joi.string().required(),
-            email: Joi.string().email({
-                minDomainSegments: 2,
-            }).required(),
+            username: Joi.string().required(),
+            password: Joi.string().required(),
         });
 
         return schema.validate(params);

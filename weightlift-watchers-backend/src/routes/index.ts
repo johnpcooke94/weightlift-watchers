@@ -22,7 +22,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/api/v1/users', UserRouter);
+    app.use('/api/v1/user', UserRouter);
 
     app.use('/api/v1/exercises', ExerciseRouter);
 

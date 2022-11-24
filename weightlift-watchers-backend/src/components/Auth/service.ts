@@ -22,12 +22,12 @@ const AuthService: IAuthService = {
             }
 
             const user: IUserModel = new UserModel({
-                email: body.email,
+                email: body.username,
                 password: body.password,
             });
 
             const query: IUserModel = await UserModel.findOne({
-                email: body.email,
+                email: body.username,
             });
 
             if (query) {

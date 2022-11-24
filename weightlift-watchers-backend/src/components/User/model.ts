@@ -1,8 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
-import { Document, Schema } from 'mongoose';
-import { NextFunction } from 'express';
+import {Document, Schema} from 'mongoose';
+import {NextFunction} from 'express';
 import * as connections from '../../config/connection/connection';
+import {IExerciseModel} from '../Exercise/model';
 
 export type AuthToken = {
     accessToken: string,
@@ -15,23 +16,12 @@ export type AuthToken = {
  * @extends {Document}
  */
 export interface IUserModel extends Document {
-    email: string;
+    username: string;
     password: string;
-    passwordResetToken: string;
-    passwordResetExpires: Date;
 
-    facebook: string;
-    tokens: AuthToken[];
+    exercises: IExerciseModel[];
 
-    profile: {
-        name: string,
-        gender: string,
-        location: string,
-        website: string,
-        picture: string,
-    };
     comparePassword: (password: string) => Promise < boolean > ;
-    gravatar: (size: number) => string;
 }
 
 /**
@@ -64,7 +54,7 @@ export interface IUserModel extends Document {
  *        $ref: '#/components/schemas/UserSchema'
  */
 const UserSchema: Schema = new Schema({
-    email: {
+    username: {
         type: String,
         unique: true,
         trim: true,

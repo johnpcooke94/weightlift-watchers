@@ -1,72 +1,46 @@
-import { NextFunction, Request, Response } from 'express';
-import UserService from './service';
-import { HttpError } from '../../config/error';
-import { IUserModel } from './model';
+import {Request, Response} from 'express';
+import * as Joi from 'joi';
+import UserValidation from './validation';
+import UserModel, {IUserModel} from './model';
 
-/**
- * @export
- * @param {Request} req
- * @param {Response} res
- * @param {NextFunction} next
- * @returns {Promise < void >}
- */
-export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function findAll(req: Request, res: Response) {
+
+}
+
+export async function findOne(req: Request, res:Response) {
+
+}
+
+export async function create(req: Request, res: Response) {
     try {
-        const users: IUserModel[] = await UserService.findAll();
+        const validate: Joi.ValidationResult = UserValidation.createUser(req.body);
 
-        res.status(200).json(users);
+        if (validate.error) {
+            res.status(400).send(validate.error.message);
+
+            return;
+        }
+
+        const user: IUserModel = await UserModel.create(req.body);
+
+        res.status(200).send(user);
     } catch (error) {
-        next(new HttpError(error.message.status, error.message));
+        res.status(500).send();
     }
 }
 
-/**
- * @export
- * @param {Request} req
- * @param {Response} res
- * @param {NextFunction} next
- * @returns {Promise < void >}
- */
-export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
-    try {
-        const user: IUserModel = await UserService.findOne(req.params.id);
+export async function findMany(req: Request, res: Response) {
 
-        res.status(200).json(user);
-    } catch (error) {
-        next(new HttpError(error.message.status, error.message));
-    }
 }
 
-/**
- * @export
- * @param {Request} req
- * @param {Response} res
- * @param {NextFunction} next
- * @returns {Promise < void >}
- */
-export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
-    try {
-        const user: IUserModel = await UserService.insert(req.body);
+export async function remove(req: Request, res: Response) {
 
-        res.status(201).json(user);
-    } catch (error) {
-        next(new HttpError(error.message.status, error.message));
-    }
 }
 
-/**
- * @export
- * @param {Request} req
- * @param {Response} res
- * @param {NextFunction} next
- * @returns {Promise < void >}
- */
-export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
-    try {
-        const user: IUserModel = await UserService.remove(req.params.id);
+export async function update(req: Request, res: Response) {
 
-        res.status(200).json(user);
-    } catch (error) {
-        next(new HttpError(error.message.status, error.message));
-    }
+}
+
+export async function authorize(req: Request, res: Response) {
+
 }

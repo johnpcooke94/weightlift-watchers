@@ -1,5 +1,5 @@
 import * as AuthComponent from './Auth';
-import * as UserComponent from './User';
+import * as UserComponent from './User/controller';
 import * as ExerciseComponent from './Exercise/controller';
 
 export {
