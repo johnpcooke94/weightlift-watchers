@@ -25,8 +25,7 @@ export async function findOne(req: Request, res: Response) {
         const exercise: IExerciseModel = await ExerciseModel.findOne(req.params);
 
         if (exercise) {
-            res.status(200)
-                .send(exercise);
+            res.status(200).send(exercise);
         } else {
             res.status(404).send();
         }
@@ -73,7 +72,18 @@ export async function findMany(req: Request, res: Response) {
 }
 
 export async function remove(req: Request, res: Response): Promise<void> {
-    res.status(501).send();
+    try {
+        const removeRes = await ExerciseModel.deleteOne({_id: {$eq: req.params.id}});
+
+        if (removeRes.deletedCount === 1) {
+            res.status(204).send();
+        } else {
+            console.error(`Multiple entries deleted when only one entry should have been for exercise ID ${req.params.id}`);
+            res.status(500).send();
+        }
+    } catch (error) {
+        res.status(500).send();
+    }
 }
 
 export async function update(req: Request, res:Response): Promise<void> {

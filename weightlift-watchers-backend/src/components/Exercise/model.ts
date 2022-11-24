@@ -12,6 +12,8 @@ export interface IExerciseModel extends Document {
     description: string;
     sets: number;
     reps: number;
+    weight: number;
+    units: 'lbs' | 'kg';
 }
 
 const ExerciseSchema: Schema = new Schema({
@@ -19,6 +21,8 @@ const ExerciseSchema: Schema = new Schema({
     description: String,
     sets: Number,
     reps: Number,
+    weight: Number,
+    units: String,
 });
 
 export default connections.db.model<IExerciseModel>('ExerciseModel', ExerciseSchema);
