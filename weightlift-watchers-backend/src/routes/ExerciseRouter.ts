@@ -13,5 +13,6 @@ router.get('/', (req, res) => {
 router.post('/', ExerciseComponent.create);
 router.get('/:id', ExerciseComponent.findOne);
 router.delete('/:id', ExerciseComponent.remove);
+router.put('/:id', ExerciseComponent.update);
 
 export default router;

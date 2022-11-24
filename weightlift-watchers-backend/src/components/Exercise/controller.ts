@@ -40,14 +40,14 @@ export async function create(req: Request, res: Response) {
         const validate: Joi.ValidationResult = ExerciseValidation.createExercise(req.body);
 
         if (validate.error) {
-            res.status(401).send(validate.error.message);
+            res.status(400).send(validate.error.message);
 
             return;
         }
 
         const exercise: IExerciseModel = await ExerciseModel.create(req.body);
 
-        res.status(200).send(exercise);
+        res.status(201).send(exercise);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -59,12 +59,12 @@ export async function findMany(req: Request, res: Response) {
         const idList = req.body.ids;
 
         if (validate.error) {
-            res.status(401).send(validate.error.message);
+            res.status(400).send(validate.error.message);
 
             return;
         }
 
-        const exercises = await ExerciseModel.find().where('_id').in(idList).exec();
+        const exercises = await ExerciseModel.find({_id: {$in: idList}});
 
         res.status(200).send(exercises);
     } catch (error) {
@@ -74,4 +74,33 @@ export async function findMany(req: Request, res: Response) {
 
 export async function remove(req: Request, res: Response): Promise<void> {
     res.status(501).send();
+}
+
+export async function update(req: Request, res:Response): Promise<void> {
+    try {
+        const oldExercise: IExerciseModel = await ExerciseModel.findOne(req.params);
+
+        if (oldExercise) {
+            const validate: Joi.ValidationResult = ExerciseValidation.updateExercise(req.body);
+
+            if (validate.error) {
+                res.status(400).send(validate.error.message);
+
+                return;
+            }
+
+            const reqExercise: IExerciseModel = req.body;
+            const updateRes = await ExerciseModel.updateOne({_id: {$eq: req.params.id}}, reqExercise);
+
+            if (updateRes.acknowledged) {
+                res.status(204).send();
+            } else {
+                res.status(500).send('An error was encountered attempting to update this resource');
+            }
+        } else {
+            res.status(404).send();
+        }
+    } catch (error) {
+        res.status(500).send();
+    }
 }

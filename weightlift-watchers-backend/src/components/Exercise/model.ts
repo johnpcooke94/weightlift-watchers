@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose';
+import {Document, Schema} from 'mongoose';
 import * as connections from '../../config/connection/connection';
 
 /**
