@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UserComponent } from '../components';
+import { AuthComponent, UserComponent } from '../components';
 
 /**
  * @constant {express.Router}
@@ -71,6 +71,8 @@ router.get('/', UserComponent.findAll);
  *                $ref: '#/components/schemas/Error'
  */
 router.post('/', UserComponent.create);
+
+router.post('/:username/login', UserComponent.authenticate);
 
 /**
  * GET method route

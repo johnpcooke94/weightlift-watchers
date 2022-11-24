@@ -30,6 +30,14 @@ class UserValidation extends Validation {
         return schema.validate(params);
     }
 
+    authenticateUser(params: IUserModel): Joi.ValidationResult {
+        const schema: Joi.Schema = Joi.object().keys({
+            password: Joi.string().required(),
+        });
+
+        return schema.validate(params);
+    }
+
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}

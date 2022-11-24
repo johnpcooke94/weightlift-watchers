@@ -20,6 +20,8 @@ export interface IUserModel extends Document {
 
     exercises: IExerciseModel[];
 
+    authToken: string;
+
     comparePassword: (password: string) => Promise < boolean > ;
 }
 
@@ -95,6 +97,10 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string):
     } catch (error) {
         return error;
     }
+};
+
+UserSchema.methods.generateToken = async function(): Promise<string> {
+    return null;
 };
 
 export default connections.db.model< IUserModel >('UserModel', UserSchema);
