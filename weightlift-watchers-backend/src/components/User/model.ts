@@ -1,5 +1,4 @@
 import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto';
 import {Document, Schema} from 'mongoose';
 import {NextFunction} from 'express';
 import * as connections from '../../config/connection/connection';
@@ -96,21 +95,6 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string):
     } catch (error) {
         return error;
     }
-};
-
-/**
- * Helper method for getting user's gravatar.
- */
-UserSchema.methods.gravatar = function (size: number): string {
-    if (!size) {
-        size = 200;
-    }
-    if (!this.email) {
-        return `https://gravatar.com/avatar/?s=${size}&d=retro`;
-    }
-    const md5: string = crypto.createHash('md5').update(this.email).digest('hex');
-
-    return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
 export default connections.db.model< IUserModel >('UserModel', UserSchema);
