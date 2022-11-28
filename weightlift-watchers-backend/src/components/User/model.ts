@@ -2,7 +2,6 @@ import * as bcrypt from 'bcrypt';
 import {Document, Schema} from 'mongoose';
 import {NextFunction} from 'express';
 import * as connections from '../../config/connection/connection';
-import {IExerciseModel} from '../Exercise/model';
 
 export type AuthToken = {
     accessToken: string,
