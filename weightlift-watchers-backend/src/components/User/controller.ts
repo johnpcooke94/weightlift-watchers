@@ -6,12 +6,35 @@ import UserValidation from './validation';
 import UserModel, {IUserModel} from './model';
 import config from '../../config/env/index';
 
-export async function findAll(req: Request, res: Response) {
-
-}
-
 export async function findOne(req: Request, res:Response) {
+    try {
+        const authToken = req.headers.authorization;
 
+        if (!authToken) {
+            res.status(401).send({message: 'You must include an authorization token to retrieve user details'});
+        }
+
+        const user = await UserModel.findOne({username: {$eq: req.params.username}});
+
+        try {
+            const decodedToken = jwt.verify(authToken, config.secret);
+
+            const authorized = await user.comparePassword(decodedToken);
+
+            const responseUser = {
+                username: user.username,
+                exercises: user.exercises,
+            };
+
+            if (authorized) {
+                res.status(200).send(responseUser);
+            }
+        } catch (error) {
+            res.status(401).send();
+        }
+    } catch (error) {
+        res.status(500).send();
+    }
 }
 
 export async function create(req: Request, res: Response) {
@@ -30,10 +53,6 @@ export async function create(req: Request, res: Response) {
     } catch (error) {
         res.status(500).send();
     }
-}
-
-export async function findMany(req: Request, res: Response) {
-
 }
 
 export async function remove(req: Request, res: Response) {

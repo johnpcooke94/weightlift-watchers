@@ -18,9 +18,7 @@ export interface IUserModel extends Document {
     username: string;
     password: string;
 
-    tokens: string[];
-
-    exercises: IExerciseModel[];
+    exercises: String[];
 
     comparePassword: (password: string) => Promise < boolean > ;
 }
