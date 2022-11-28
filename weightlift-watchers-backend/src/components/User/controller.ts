@@ -4,6 +4,7 @@ import * as Joi from 'joi';
 import * as jwt from 'jsonwebtoken';
 import UserValidation from './validation';
 import UserModel, {IUserModel} from './model';
+import config from '../../config/env/index';
 
 export async function findAll(req: Request, res: Response) {
 
@@ -62,19 +63,10 @@ export async function authenticate(req: Request, res: Response) {
                 return;
             }
 
-            // TODO: THIS IS OMEGA UNSECURE DO NOT USE THIS IN PRODUCTION
-            const token = jwt.sign(req.body.password, 'THIS IS SUPER UNSECURE THIS IS FOR DEVELOPMENT ONLY');
-            user.authToken = token;
+            // TODO: set token expiry for better security - 24 hours?
+            const token = jwt.sign(req.body.password, config.secret);
 
-            // TODO: need to send user info back to client with an auth token, but omit hashed password and tokens stored in mongo
-            const returnUser: IUserModel = {
-                username: user.username,
-                // eslint-disable-next-line no-underscore-dangle
-                _id: user._id,
-                authToken: user.authToken,
-            };
-
-            res.status(200).send(returnUser);
+            res.status(200).send({token});
         } else {
             res.status(404).send();
         }

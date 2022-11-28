@@ -18,42 +18,13 @@ export interface IUserModel extends Document {
     username: string;
     password: string;
 
-    exercises: IExerciseModel[];
+    tokens: string[];
 
-    authToken: string;
+    exercises: IExerciseModel[];
 
     comparePassword: (password: string) => Promise < boolean > ;
 }
 
-/**
- * @swagger
- * components:
- *  schemas:
- *    UserSchema:
- *      required:
- *        - email
- *        - name
- *      properties:
- *        id:
- *          type: string
- *        name:
- *          type: string
- *        email:
- *          type: string
- *        password:
- *          type: string
- *        passwordResetToken:
- *          type: string
- *        passwordResetExpires:
- *          type: string
- *          format: date
- *        tokens:
- *          type: array
- *    Users:
- *      type: array
- *      items:
- *        $ref: '#/components/schemas/UserSchema'
- */
 const UserSchema: Schema = new Schema({
     username: {
         type: String,
@@ -63,7 +34,7 @@ const UserSchema: Schema = new Schema({
     password: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
-    tokens: Array,
+    exercises: Array,
 }, {
     collection: 'usermodel',
     versionKey: false,
