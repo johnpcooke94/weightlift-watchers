@@ -30,6 +30,15 @@ class UserValidation extends Validation {
         return schema.validate(params);
     }
 
+    updateUser(params: IUserModel): Joi.ValidationResult {
+        const schema: Joi.Schema = Joi.object().keys({
+            username: Joi.string().allow(),
+            exercises: Joi.array().required(),
+        });
+
+        return schema.validate(params);
+    }
+
     authenticateUser(params: IUserModel): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             password: Joi.string().required(),

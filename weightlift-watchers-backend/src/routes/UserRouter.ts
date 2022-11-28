@@ -75,6 +75,8 @@ router.post('/:username/login', UserComponent.authenticate);
  */
 router.get('/:username', UserComponent.findOne);
 
+router.put('/:username', UserComponent.update);
+
 /**
  * DELETE method route
  * @example  http://localhost:PORT/v1/users/:id
