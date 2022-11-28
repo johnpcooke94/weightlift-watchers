@@ -69,7 +69,35 @@ export async function create(req: Request, res: Response) {
 }
 
 export async function remove(req: Request, res: Response) {
+    try {
+        const authToken = req.headers.authorization;
 
+        if (!authToken) {
+            res.status(401).send({message: 'You must include an authorization token to retrieve user details'});
+
+            return;
+        }
+
+        const user = await UserModel.findOne({username: {$eq: req.params.username}});
+
+        const authorized = await checkToken(authToken, user);
+
+        if (!authorized) {
+            res.status(401).send();
+
+            return;
+        }
+
+        const deleteRes = await UserModel.deleteOne({username: {$eq: req.params.username}});
+
+        if (deleteRes.acknowledged) {
+            res.status(201).send();
+        } else {
+            res.status(500).send('An error was encountered attempted to delete this user');
+        }
+    } catch (error) {
+        res.status(500).send();
+    }
 }
 
 export async function update(req: Request, res: Response) {
