@@ -5,7 +5,7 @@ import ExerciseView from '../ExerciseView/ExerciseView';
 
 const AppContainer = () => {
     return (
-        <Container fluid>
+        <Container fluid style={{padding: 0}}>
             <MainNavigation/>
             <ExerciseView/>
         </Container>
