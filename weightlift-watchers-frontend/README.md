@@ -1,8 +1,34 @@
-# Getting Started with Create React App
+# Weightlift Watchers Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the React frontend for the Weightlift Watchers project. See the readme in the project root for an overview of
+the project. This readme will cover the details of developing and running the frontend only.
 
-## Available Scripts
+## Getting started
+
+### Prerequisites
+- node >= 14
+- npm >= 6
+- mongodb >= 4.0
+- typescript >= 4.0
+
+### Running the backend
+You must run the backend application first in order to use all features of the frontend in development. See the backend 
+readme for more info.
+
+### Running the frontend
+1. Clone the repository
+2. Run the backend - see backend readme
+3. Install dependencies `npm install`
+4. Start the development server `npm start`
+5. Your browser should automatically open to `http://localhost:3000`
+   - Note: The port may change if 3000 is already in use by the backend
+
+## Create React App
+
+This frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The following scripts
+are available as part of the Create React App package.
+
+### Available Scripts
 
 In the project directory, you can run:
 
