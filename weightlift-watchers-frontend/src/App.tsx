@@ -1,9 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import AppContainer from './components/AppContainer/AppContainer';
+import {Outlet} from 'react-router-dom';
+import MainNavigation from './components/MainNavigation/MainNavigation';
 
 function App() {
   return (
-      <AppContainer/>
+      <>
+          <MainNavigation/>
+          <Outlet/>
+      </>
   );
 }
 

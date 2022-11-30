@@ -27,7 +27,8 @@ const ExerciseView = () => {
     });
 
     return (<> {activeExercise ? (
-            <TabContainer defaultActiveKey={activeExercise?.id}>
+        <Container fluid>
+            <TabContainer defaultActiveKey={activeExercise.id}>
                 <Row>
                     <Col md={3}>
                         <Container>
@@ -52,6 +53,7 @@ const ExerciseView = () => {
                     </Col>
                 </Row>
             </TabContainer>
+        </Container>
         ) : null}
     </>
 
