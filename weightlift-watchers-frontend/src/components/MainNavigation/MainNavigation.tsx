@@ -1,4 +1,4 @@
-import {Container, Nav, Navbar, NavbarBrand, NavItem} from 'react-bootstrap';
+import {Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'react-bootstrap';
 import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 import './MainNavigation.css';
 import {Link} from 'react-router-dom';
@@ -6,19 +6,25 @@ import {Link} from 'react-router-dom';
 
 const MainNavigation = () => {
     return (
-        <Container fluid>
+        <Container fluid style={{padding: 0}}>
             <Navbar className='main-nav'>
                 <NavbarBrand>Weightlift Watchers</NavbarBrand>
                 <NavbarCollapse className='justify-content-end'>
                     <Nav>
                         <NavItem>
-                            <Link to={'/exercises'}>Exercises</Link>
+                            <NavLink>
+                                <Link className='nav-links' to={'/exercises'}>Exercises</Link>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to={'/createExercise'}>New Exercise</Link>
+                            <NavLink>
+                                <Link className='nav-links' to={'/createExercise'}>New Exercise</Link>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to={'/login'}>Login/Register</Link>
+                            <NavLink>
+                                <Link className='nav-links' to={'/login'}>Login/Register</Link>
+                            </NavLink>
                         </NavItem>
                     </Nav>
                 </NavbarCollapse>
