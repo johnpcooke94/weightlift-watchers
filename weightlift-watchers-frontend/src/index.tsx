@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ExerciseView from './components/ExerciseView/ExerciseView';
 import CreateExerciseView from './components/CreateExerciseView/CreateExerciseView';
-import LoginRegisterView from './components/LoginRegisterView/LoginRegisterView';
+import LoginView from './components/LoginRegisterView/LoginView';
 import RegisterView from './components/LoginRegisterView/RegisterView';
 
 const root = ReactDOM.createRoot(
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: <LoginRegisterView/>
+                element: <LoginView/>
             },
             {
                 path: "/register",

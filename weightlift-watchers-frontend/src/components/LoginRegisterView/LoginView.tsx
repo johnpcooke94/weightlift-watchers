@@ -1,7 +1,7 @@
 import {Button, Container, Form, FormControl, FormGroup, FormLabel, Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-const LoginRegisterView = () => {
+const LoginView = () => {
     return (
         <Container>
             <Row style={{textAlign: 'center'}}>
@@ -30,4 +30,4 @@ const LoginRegisterView = () => {
     );
 }
 
-export default LoginRegisterView;
+export default LoginView;
