@@ -18,8 +18,12 @@ const router = createBrowserRouter([
         element: <App/>,
         children: [
             {
+                element: <ExerciseView/>,
+                index: true
+            },
+            {
                 path: "/exercises",
-                element: <ExerciseView/>
+                element: <ExerciseView/>,
             },
             {
                 path: "/createExercise",
