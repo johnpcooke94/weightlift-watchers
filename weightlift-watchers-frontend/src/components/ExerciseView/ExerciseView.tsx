@@ -24,7 +24,7 @@ const ExerciseView = () => {
     useEffect(() => {
         setExercises(TestExerciseList);
         setActiveExercise(testExerciseList[0]);
-    });
+    }, []);
 
     return (<> {activeExercise ? (
         <Container fluid>
