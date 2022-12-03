@@ -8,9 +8,10 @@ import ExerciseView from './components/ExerciseView/ExerciseView';
 import CreateExerciseView from './components/CreateExerciseView/CreateExerciseView';
 import LoginView from './components/LoginRegisterView/LoginView';
 import RegisterView from './components/LoginRegisterView/RegisterView';
+import {WebState} from './webstate/WebState';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 const router = createBrowserRouter([
@@ -42,10 +43,14 @@ const router = createBrowserRouter([
     }
 ]);
 
+// Ensuring that the webstate is instantiated when the application loads
+// @ts-ignore
+const webState: WebState = WebState.getInstance();
+
 root.render(
-  <React.StrictMode>
-      <RouterProvider router={router}/>
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router}/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
