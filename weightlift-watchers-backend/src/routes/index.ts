@@ -3,7 +3,6 @@ import * as http from 'http';
 import * as path from 'path';
 import * as swaggerJSDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
-import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 import ExerciseRouter from './ExerciseRouter';
 
@@ -25,12 +24,6 @@ export function init(app: express.Application): void {
     app.use('/api/v1/user', UserRouter);
 
     app.use('/api/v1/exercises', ExerciseRouter);
-
-    /**
-     * @description Forwards any requests to the /auth URI to our AuthRouter
-     * @constructs
-     */
-    app.use('/auth', AuthRouter);
 
     /**
      * @description

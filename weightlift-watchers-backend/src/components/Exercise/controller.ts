@@ -14,7 +14,11 @@ export async function findAll(req: Request, res: Response) {
     try {
         const exercises: IExerciseModel[] = await ExerciseModel.find({});
 
-        res.status(200).json(exercises);
+        const responseBody = {
+            exercises,
+        };
+
+        res.status(200).json(responseBody);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -65,7 +69,11 @@ export async function findMany(req: Request, res: Response) {
 
         const exercises = await ExerciseModel.find({_id: {$in: idList}});
 
-        res.status(200).send(exercises);
+        const responseBody = {
+            exercises,
+        };
+
+        res.status(200).send(responseBody);
     } catch (error) {
         res.status(500).send();
     }
