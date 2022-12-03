@@ -40,6 +40,10 @@ const LoginView = () => {
                 alert('Success! Loading your exercises.');
             }
 
+            if (getUserResponse.status === 401) {
+                alert('Incorrect username or password.');
+            }
+
         } else {
             alert('There was a problem logging you in.');
         }

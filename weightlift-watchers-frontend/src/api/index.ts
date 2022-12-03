@@ -4,6 +4,8 @@ import axios, {AxiosInstance} from 'axios';
 import {loginRequest} from './types/loginRequest';
 import {loginResponse} from './types/loginResponse';
 import {getUserResponse} from './types/getUserResponse';
+import {getExercisesRequest} from './types/getExercisesRequest';
+import {getExercisesResponse} from './types/getExercisesResponse';
 
 
 const config = {
@@ -44,4 +46,15 @@ export async function loginUser (username: string, password: string) {
 
 export async function retrieveUser (username: string) {
     return (await api.get<getUserResponse>(`/user/${username}`))
+}
+
+export async function retrieveExercises (exerciseIDs: string[]) {
+    const request: getExercisesRequest = {
+        ids: exerciseIDs
+    };
+
+    return await api.get<getExercisesResponse>('/exercises', {
+        data: request,
+    });
+
 }

@@ -2,7 +2,7 @@ import {Exercise} from './types/Exercise';
 
 const exercises: Exercise[] = [
     {
-        id: '1',
+        _id: '1',
         name: 'Test Exercise 1',
         description: 'This is the first test exercise.',
         sets: 3,
@@ -11,7 +11,7 @@ const exercises: Exercise[] = [
         units: 'lbs'
     },
     {
-        id: '2',
+        _id: '2',
         name: 'Test Exercise 2',
         description: 'This is the second test exercise.',
         sets: 5,
@@ -20,7 +20,7 @@ const exercises: Exercise[] = [
         units: 'lbs'
     },
     {
-        id: '3',
+        _id: '3',
         name: 'Test Exercise 3',
         description: 'This is the final test exercise.',
         sets: 10,

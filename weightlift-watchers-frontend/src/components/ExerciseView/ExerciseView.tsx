@@ -11,51 +11,90 @@ import {
     TabPane
 } from 'react-bootstrap';
 import {useEffect, useState} from 'react';
-import TestExerciseList from '../../TestExerciseList';
 import {Exercise} from '../../types/Exercise';
-import testExerciseList from '../../TestExerciseList';
+import {WebState} from '../../webstate/WebState';
+import {retrieveExercises} from '../../api';
 
 const ExerciseView = () => {
 
     const [exercises, setExercises] = useState<Exercise[]>([]);
-    const [activeExercise, setActiveExercise] = useState<Exercise>();
+    const [defaultExercise, setDefaultExercise] = useState<Exercise | undefined>(undefined);
 
-    // TODO: get this stuff from the server using the API
+    const webState = WebState.getInstance();
+
+
     useEffect(() => {
-        setExercises(TestExerciseList);
-        setActiveExercise(testExerciseList[0]);
+        async function getExercises() {
+
+            if (webState.user) {
+
+                if (webState.exercises) {
+                    setExercises(webState.exercises);
+                } else {
+                    const response = await retrieveExercises(webState.user.exercises);
+
+                    if (response.status === 200) {
+                        setExercises(response.data.exercises);
+                        webState.exercises = response.data.exercises;
+                    } else {
+                        alert('There was a problem retrieving your exercises.');
+                    }
+                }
+
+            }
+
+        }
+        getExercises();
     }, []);
 
-    return (<> {activeExercise ? (
-        <Container fluid>
-            <TabContainer defaultActiveKey={activeExercise.id}>
-                <Row>
-                    <Col md={3}>
-                        <Container>
-                            <Nav variant={'pills'} className='flex-column'>
+    useEffect(() => {
+        console.log(exercises);
+        if (exercises.length > 0) {
+            setDefaultExercise(exercises[0]);
+        }
+    }, [exercises]);
+
+    if (!webState.user) {
+        return (
+            <Container fluid style={{textAlign: 'center'}}>
+                <h2>Please log in to see your exercises.</h2>
+            </Container>
+        );
+    }
+
+    return (<> {defaultExercise ? (
+            <Container fluid>
+                <TabContainer defaultActiveKey={defaultExercise._id}>
+                    <Row>
+                        <Col md={3}>
+                            <Container>
+                                <Nav variant={'pills'} className='flex-column'>
+                                    {exercises.map((e: Exercise) => (
+                                            <NavItem>
+                                                <NavLink eventKey={e._id}>{e.name}</NavLink>
+                                            </NavItem>
+                                    ))}
+                                </Nav>
+                            </Container>
+                        </Col>
+                        <Col>
+                            <TabContent>
                                 {exercises.map((e: Exercise) => (
-                                        <NavItem>
-                                            <NavLink eventKey={e.id}>{e.name}</NavLink>
-                                        </NavItem>
-                                    )
-                                )}
-                            </Nav>
-                        </Container>
-                    </Col>
-                    <Col>
-                        <TabContent>
-                            {exercises.map((e: Exercise) => (
-                                <TabPane eventKey={e.id}>
-                                    <ExerciseDetailView exercise={e}/>
-                                </TabPane>
-                            ))}
-                        </TabContent>
-                    </Col>
-                </Row>
-            </TabContainer>
-        </Container>
-        ) : null}
-    </>
+                                    <TabPane eventKey={e._id}>
+                                        <ExerciseDetailView exercise={e}/>
+                                    </TabPane>
+                                ))}
+                            </TabContent>
+                        </Col>
+                    </Row>
+                </TabContainer>
+            </Container>
+        ) : (
+            <Container fluid>
+                <h2>Loading your exercises...</h2>
+            </Container>
+        )}
+        </>
 
     );
 };
