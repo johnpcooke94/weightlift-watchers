@@ -48,7 +48,6 @@ const ExerciseView = () => {
     }, []);
 
     useEffect(() => {
-        console.log(exercises);
         if (exercises.length > 0) {
             setDefaultExercise(exercises[0]);
         }
