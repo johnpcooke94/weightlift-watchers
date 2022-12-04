@@ -62,7 +62,14 @@ export async function create(req: Request, res: Response) {
 
         const user: IUserModel = await UserModel.create(req.body);
 
-        res.status(200).send(user);
+        const responseUser = {
+            username: user.username,
+            exercises: user.exercises,
+            // eslint-disable-next-line no-underscore-dangle
+            _id: user._id,
+        };
+
+        res.status(200).send(responseUser);
     } catch (error) {
         res.status(500).send();
     }
