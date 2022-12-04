@@ -14,9 +14,12 @@ Refer to their documentation if there is a question about directory structure or
 
 ### Running the backend
 1. Clone the repository
-2. Run mongodb: `mongod --config /opt/homebrew/etc/mongod.conf`
-3. Install dependencies `npm install`
-4. Run the backend: 
+2. Copy `.env.example` to `.env` and replace `<your_secret_here>` with a secret - preferably one generated from a secure secrete generator
+3. Run mongodb:
+   - Windows: `mongod` 
+   - MacOS: `mongod --config /opt/homebrew/etc/mongod.conf`
+4. Install dependencies `npm install`
+5. Run the backend: 
    - For development: `nodemon`
    - For production: `npm start`
 

@@ -18,9 +18,10 @@ readme for more info.
 ### Running the frontend
 1. Clone the repository
 2. Run the backend - see backend readme
-3. Install dependencies `npm install`
-4. Start the development server `npm start`
-5. Your browser should automatically open to `http://localhost:3000`
+3. Copy `.env.example` to `.env` and ensure the API URL is correctly pointed to your local backend
+4. Install dependencies `npm install`
+5. Start the development server `npm start`
+6. Your browser should automatically open to `http://localhost:3000`
    - Note: The port may change if 3000 is already in use by the backend
 
 ## Create React App
