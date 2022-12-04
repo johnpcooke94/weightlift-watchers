@@ -8,6 +8,8 @@ import {getExercisesRequest} from './types/getExercisesRequest';
 import {getExercisesResponse} from './types/getExercisesResponse';
 import {Exercise} from '../types/Exercise';
 import {updateExerciseRequest} from './types/updateExerciseRequest';
+import {createExerciseRequest} from './types/createExerciseRequest';
+import {createExerciseResponse} from './types/createExerciseResponse';
 
 
 const config = {
@@ -71,5 +73,9 @@ export async function updateExercise (exercise: Exercise) {
         units: exercise.units,
     }
 
-    return await api.put<updateExerciseRequest>(`/exercises/${exercise._id}`, request);
+    return await api.put(`/exercises/${exercise._id}`, request);
+}
+
+export async function createExercise (request: createExerciseRequest) {
+    return await api.post<createExerciseResponse>('/exercises', request);
 }
