@@ -6,6 +6,8 @@ import {loginResponse} from './types/loginResponse';
 import {getUserResponse} from './types/getUserResponse';
 import {getExercisesRequest} from './types/getExercisesRequest';
 import {getExercisesResponse} from './types/getExercisesResponse';
+import {Exercise} from '../types/Exercise';
+import {updateExerciseRequest} from './types/updateExerciseRequest';
 
 
 const config = {
@@ -57,4 +59,17 @@ export async function retrieveExercises (exerciseIDs: string[]) {
         data: request,
     });
 
+}
+
+export async function updateExercise (exercise: Exercise) {
+    const request: updateExerciseRequest = {
+        name: exercise.name,
+        sets: exercise.sets,
+        reps: exercise.reps,
+        description: exercise.description,
+        weight: exercise.weight,
+        units: exercise.units,
+    }
+
+    return await api.put<updateExerciseRequest>(`/exercises/${exercise._id}`, request);
 }
