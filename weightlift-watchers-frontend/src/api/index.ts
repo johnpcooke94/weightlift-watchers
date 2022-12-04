@@ -4,12 +4,13 @@ import axios, {AxiosInstance} from 'axios';
 import {loginRequest} from './types/loginRequest';
 import {loginResponse} from './types/loginResponse';
 import {getUserResponse} from './types/getUserResponse';
-import {getExercisesRequest} from './types/getExercisesRequest';
 import {getExercisesResponse} from './types/getExercisesResponse';
 import {Exercise} from '../types/Exercise';
 import {updateExerciseRequest} from './types/updateExerciseRequest';
 import {createExerciseRequest} from './types/createExerciseRequest';
 import {createExerciseResponse} from './types/createExerciseResponse';
+import {updateUserRequest} from './types/updateUserRequest';
+import {User} from '../types/User';
 
 
 const config = {
@@ -21,6 +22,13 @@ let api: AxiosInstance = axios.create(config);
 
 export async function createNewUser (request: createUserRequest) {
     return (await api.post<createUserResponse>('/user', request));
+}
+
+export async function updateUser (user: User) {
+    const request: updateUserRequest = {
+        exercises: user.exercises,
+    }
+    return await api.put(`/user/${user.username}`, request);
 }
 
 export async function loginUser (username: string, password: string) {
@@ -52,14 +60,9 @@ export async function retrieveUser (username: string) {
     return (await api.get<getUserResponse>(`/user/${username}`))
 }
 
-export async function retrieveExercises (exerciseIDs: string[]) {
-    const request: getExercisesRequest = {
-        ids: exerciseIDs
-    };
+export async function retrieveExercisesForUser (user: User) {
 
-    return await api.get<getExercisesResponse>('/exercises', {
-        data: request,
-    });
+    return await api.get<getExercisesResponse>(`/exercises/user/${user.username}`);
 
 }
 

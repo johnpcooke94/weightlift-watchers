@@ -3,7 +3,7 @@ import {WebState} from '../../webstate/WebState';
 import {FormEvent, useState} from 'react';
 import {Exercise} from '../../types/Exercise';
 import {createExerciseRequest} from '../../api/types/createExerciseRequest';
-import {createExercise} from '../../api';
+import {createExercise, updateUser} from '../../api';
 import {Navigate} from 'react-router-dom';
 
 const CreateExerciseView = () => {
@@ -46,9 +46,21 @@ const CreateExerciseView = () => {
                 units: response.data.units,
             }
 
+            if (!webstate.exercises) {
+                webstate.exercises = [];
+            }
+
             webstate.exercises?.push(newExercise);
-            setSubmitted(true);
-            alert('Success!');
+            webstate.user?.exercises.push(newExercise._id);
+
+            const updateUserResponse = await updateUser(webstate.user!);
+
+            if (updateUserResponse.status === 200) {
+                setSubmitted(true);
+                alert('Success!');
+            } else {
+                alert('A problem was encountered creating this exercise');
+            }
         }
 
     };

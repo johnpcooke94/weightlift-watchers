@@ -1,6 +1,6 @@
 import {Exercise} from '../../types/Exercise';
 import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, FormSelect, Row} from 'react-bootstrap';
-import {useState} from 'react';
+import {FormEvent, useState} from 'react';
 import {updateExercise} from '../../api';
 import {WebState} from '../../webstate/WebState';
 
@@ -15,11 +15,11 @@ const ExerciseDetailView = (props: ExerciseDetailViewProps) => {
 
     const [editing, setEditing] = useState<boolean>();
 
-    const handleSubmit = async () => {
-        // TODO: This is document call is extremely un-React-y but the FormEvent implementation was submitting at weird times for some reason
-        const form = document.getElementById('updateExerciseForm') as HTMLFormElement;
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
-        const formData = new FormData(form);
+        const formData = new FormData(event.currentTarget);
+        console.log(formData);
 
         const nameInput = formData.get('name');
         const descriptionInput = formData.get('description');
@@ -32,7 +32,7 @@ const ExerciseDetailView = (props: ExerciseDetailViewProps) => {
         const exerciseFromForm: Exercise =  {
             _id: props.exercise._id,
             name: nameInput as string,
-            description: descriptionInput as string,
+            description: descriptionInput ? descriptionInput as string : undefined,
             sets: setsInput as unknown as number,
             reps: repsInput as unknown as number,
             weight: weightInput as unknown as number,
@@ -62,7 +62,7 @@ const ExerciseDetailView = (props: ExerciseDetailViewProps) => {
 
     return (
         <Container fluid>
-            <Form id={'updateExerciseForm'}>
+            <Form onSubmit={handleSubmit}>
                 <FormGroup>
                     <FormLabel>Exercise</FormLabel>
                     <FormControl
@@ -123,10 +123,13 @@ const ExerciseDetailView = (props: ExerciseDetailViewProps) => {
                 <FormGroup style={{marginTop: '20px'}}>
                     {editing ? (
                         <>
-                            <Button onClick={handleSubmit} style={{marginRight: '15px'}}>Submit Changes</Button>
-                            <Button onClick={() => setEditing(false)}>Cancel Edit</Button>
+                            <Button type={'submit'} style={{marginRight: '15px'}}>Submit Changes</Button>
+                            <Button type={'reset'} onClick={() => setEditing(false)}>Cancel Edit</Button>
                         </>
-                    ) : <Button onClick={() => setEditing(true)}>Edit Exercise</Button>}
+                    ) : <Button type={'button'} onClick={(event) => {
+                        event.preventDefault();
+                        setEditing(true);
+                    }}>Edit Exercise</Button>}
                 </FormGroup>
             </Form>
         </Container>

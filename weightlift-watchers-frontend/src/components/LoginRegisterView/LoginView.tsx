@@ -7,6 +7,15 @@ import {WebState} from '../../webstate/WebState';
 const LoginView = () => {
 
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const [loggedOut, setLoggedOut] = useState<boolean>(false);
+
+    const handleLogout = () => {
+        const webstate = WebState.getInstance();
+
+        webstate.user = undefined;
+        webstate.exercises = undefined;
+        setLoggedOut(true);
+    }
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -52,6 +61,13 @@ const LoginView = () => {
 
     if (loggedIn) {
         return (<Navigate to={'/exercises'} />)
+    }
+
+    if (WebState.getInstance().user && !loggedOut) {
+        return (<Container fluid>
+            <h1>You are already logged in.</h1>
+            <Button onClick={handleLogout}>Log out</Button>
+        </Container>);
     }
 
     return (

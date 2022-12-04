@@ -2,6 +2,7 @@ import * as Joi from 'joi';
 import {Request, Response} from 'express';
 import ExerciseModel, {IExerciseModel} from './model';
 import ExerciseValidation from './validation';
+import UserModel from '../User/model';
 
 /**
  * @export
@@ -56,18 +57,14 @@ export async function create(req: Request, res: Response) {
     }
 }
 
-export async function findMany(req: Request, res: Response) {
+export async function findAllForUser(req: Request, res: Response) {
     try {
-        const validate: Joi.ValidationResult = ExerciseValidation.getExercises(req.body);
-        const idList = req.body.ids;
 
-        if (validate.error) {
-            res.status(400).send(validate.error.message);
+        const {username} = req.params;
 
-            return;
-        }
+        const user = await UserModel.findOne({username: {$eq: username}});
 
-        const exercises = await ExerciseModel.find({_id: {$in: idList}});
+        const exercises = await ExerciseModel.find({_id: {$in: user.exercises}});
 
         const responseBody = {
             exercises,

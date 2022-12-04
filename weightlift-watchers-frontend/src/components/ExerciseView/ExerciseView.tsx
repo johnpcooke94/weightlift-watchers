@@ -13,7 +13,7 @@ import {
 import {useEffect, useState} from 'react';
 import {Exercise} from '../../types/Exercise';
 import {WebState} from '../../webstate/WebState';
-import {retrieveExercises} from '../../api';
+import {retrieveExercisesForUser} from '../../api';
 
 const ExerciseView = () => {
 
@@ -31,7 +31,7 @@ const ExerciseView = () => {
                 if (webState.exercises) {
                     setExercises(webState.exercises);
                 } else {
-                    const response = await retrieveExercises(webState.user.exercises);
+                    const response = await retrieveExercisesForUser(webState.user)
 
                     if (response.status === 200) {
                         setExercises(response.data.exercises);
@@ -57,6 +57,14 @@ const ExerciseView = () => {
         return (
             <Container fluid style={{textAlign: 'center'}}>
                 <h2>Please log in to see your exercises.</h2>
+            </Container>
+        );
+    }
+
+    if (webState.user && (!webState.exercises || webState.exercises.length <= 0)) {
+        return (
+            <Container fluid style={{textAlign: 'center'}}>
+                <h2>You currently have no exercises, please create one to track it.</h2>
             </Container>
         );
     }

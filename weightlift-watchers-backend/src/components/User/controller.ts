@@ -51,6 +51,7 @@ export async function findOne(req: Request, res:Response) {
 }
 
 export async function create(req: Request, res: Response) {
+    // TODO: This endpoint just causes a crash when a user tries to register with a duplicate username
     try {
         const validate: Joi.ValidationResult = UserValidation.createUser(req.body);
 
